@@ -28,7 +28,7 @@ namespace P16
         }
 
         /// <summary>
-        /// Выводит список продутов выбранного покупателя
+        /// Выводит список продуктов выбранного покупателя
         /// </summary>
         /// <param name="customer"></param>
         /// <param name="DBConnection"></param>
@@ -38,7 +38,7 @@ namespace P16
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
 
             var sql = $@"Select * from Product
-Where Email like '%{customer.Row["Email"]}%'";  // не особо понял, можно ли так делать 
+Where Email like '%{customer.Row["Email"]}%'"; 
             dataAdapter.SelectCommand = new SqlCommand(sql, DBConnection);
             dataAdapter.Fill(dataTable);
             grid.DataContext = dataTable.DefaultView;

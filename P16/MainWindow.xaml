@@ -12,9 +12,10 @@
         <Label Name="MSText" Content="MSSQLLocalDB в состоянии" HorizontalAlignment="Left" Margin="197,79,0,0" VerticalAlignment="Top" Width="225"/>
         <Label Name="MSState" Content="Закрыт" HorizontalAlignment="Left" Margin="427,79,0,0" VerticalAlignment="Top" Width="130"/>
         <Button Content="Подключиться" HorizontalAlignment="Center" Margin="0,306,0,0" VerticalAlignment="Top" Width="138" Click="Button_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="327,185,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249" FontSize="14"/>
+        <TextBox x:Name="LoginText" HorizontalAlignment="Left" Height="30" Margin="327,185,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249" FontSize="14"/>
         <Label Content="Login" HorizontalAlignment="Left" Margin="197,185,0,0" VerticalAlignment="Top" Width="109" Height="30"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="197,238,0,0" VerticalAlignment="Top" Width="109" Height="30"/>
-        <TextBox HorizontalAlignment="Left" Margin="327,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="249" Height="30" FontSize="14"/>
+        <TextBox x:Name="PasswordText" HorizontalAlignment="Left" Margin="327,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="249" Height="30" FontSize="14"/>
+        <Label x:Name="ErrorText" Content="" HorizontalAlignment="Left" Margin="292,137,0,0" VerticalAlignment="Top" Width="173"/>
     </Grid>
 </Window>

@@ -94,7 +94,6 @@ namespace P16
         private void GVCurrentCellChanged(object sender, EventArgs e)
         {
             if (row == null) return;
-
             row.EndEdit();
             dataAdapter.Update(dataTable);
         }
@@ -103,7 +102,6 @@ namespace P16
         {
             row = (DataRowView)grid.SelectedItem;
             row.BeginEdit();
-            dataAdapter.Update(dataTable);
         }
         
         /// <summary>
@@ -130,9 +128,16 @@ namespace P16
         /// <param name="e"></param>
         private void ShowAllProduct(object sender, RoutedEventArgs e)
         {
-            row = (DataRowView)grid.SelectedItem;
-            WindowProduct w = new WindowProduct(row ,DBConnection);
-            w.Show();
+            try
+            {
+                row = (DataRowView)grid.SelectedItem;
+                WindowProduct w = new WindowProduct(row, DBConnection);
+                w.Show();
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>

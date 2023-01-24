@@ -23,22 +23,35 @@ namespace P16
     {
         SqlConnection connectionMS;
         SqlConnection connectionDB;
+        SqlConnection connectionDataBase;
 
-        private string name;
+        private string login;
         private string password;
 
         public MainWindow()
         {
             InitializeComponent();
-            OpenMS();
-            OpenDB();
+            OpenDataBase();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Window2 window2 = new Window2(connectionMS, connectionDB);
-            Close();
-            window2.Show();
+            login = LoginText.Text;
+            password = PasswordText.Text;
+            ErrorText.Content = string.Empty;
+            if (Verification())
+            {
+                connectionDataBase.Close();
+                OpenMS();
+                OpenDB();
+                Window2 window2 = new Window2(connectionMS, connectionDB);
+                Close();
+                window2.Show();
+            }
+            else
+            {
+                ErrorText.Content = "Неверный логин или пароль";
+            }
         }
 
         private void OpenMS()
@@ -48,7 +61,6 @@ namespace P16
                 DataSource = @"(localdb)\MSSQLLocalDB",
                 InitialCatalog = @"MSAccess",
                 IntegratedSecurity = true,
-                UserID = $"name", Password = $"password",
                 Pooling = true
             };
             connectionMS = new SqlConnection(sqlString.ConnectionString);
@@ -70,6 +82,33 @@ namespace P16
             connectionDB.StateChange +=
             (s, e) => { DBState.Content = $"{(s as SqlConnection).State}"; };
             connectionDB.Open();
+        }
+
+        private void OpenDataBase()
+        {
+            SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder()
+            {
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = @"DataBase",
+                IntegratedSecurity = true,
+                Pooling = true
+            };
+            connectionDataBase = new SqlConnection(sqlString.ConnectionString);
+            connectionDataBase.Open();
+            
+        }
+        /// <summary>
+        /// Проверка логина и пороля из таблицы Verification
+        /// </summary>
+        /// <returns></returns>
+        private bool Verification()
+        {
+            var sql = $@"Select* from Verification Where Email = '{login}' and Password = '{password}'";
+            SqlCommand command = new SqlCommand(sql, connectionDataBase);
+            SqlDataReader r = command.ExecuteReader();
+            bool a = r.HasRows;
+            r.Close();
+            return a;
         }
     }
 }
